@@ -1,6 +1,6 @@
 {
   "name": "react-decimal-field",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "React component that represents a decimal input field",
   "main": "index.js",
   "scripts": {
@@ -39,5 +39,5 @@
     "type": "git",
     "url": "git+https://bitbucket.org/standardstate/decimal-field.git"
   },
-  "homepage": "https://bitbucket.org/standardstate/decimal-field#readme"
+  "homepage": "http://standardstate.com/react-components/react-decimal-field"
 }
