@@ -29,7 +29,7 @@ gulp.task('default', shell.task([
 );
 
 gulp.task('generate-final-index', shell.task([
-    'jsx app/js .', 'rm Sample.react.js', 'rm app.js', 'mv NumericField.react.js index.js'
+    'jsx --harmony --es6module app/js .', 'rm Sample.react.js', 'rm app.js', 'mv DecimalField.react.js index.js'
   ])
 );
 
@@ -37,4 +37,3 @@ gulp.task('publish', shell.task([
     'npm publish'
   ])
 );
-

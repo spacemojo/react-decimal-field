@@ -1,40 +1,44 @@
 'use strict'
 
-var React = require('react');
-var UUID = require('uuid');
+import React from 'react';
+import UUID from 'uuid';
 
-var DecimalField = React.createClass({displayName: "DecimalField",
+let DecimalField = React.createClass({displayName: "DecimalField",
 
-  id: "",
-  currentValue: "",
+  getInitialState: function() {
+    this.id = UUID.v4();
+    this.currentValue = (this.props.value == undefined) ? "" : this.processValue(this.props.value);
+    return null;
+  },
+
+  processValue: function(value) {
+    return (this.isDecimal(value)) ? value : 0.00;
+  },
+
+  isDecimal: function(value) {
+    return (value.match( /^(\d+\.?\d*|\.\d+)$/ ) != null);
+  },
 
   onChange: function(event) {
 
-    var inputValue = event.nativeEvent.target.value;
+    let that = this;
+    this.currentValue = event.nativeEvent.target.value.split("").reduce(function(str, char) {
 
-    if(inputValue.length > 0) {
+      let tmp = str + char;
+      return  (that.isDecimal(tmp)) ? tmp : str;
 
-      var isDecimal = (inputValue.match( /^(\d+\.?\d*|\.\d+)$/ ) != null);
-      if(isDecimal) {
-        this.currentValue = inputValue;
-      } else {
-        document.getElementById(this.id).value = inputValue.substring(0, inputValue.length - 1);
-      }
+    }, "");
 
-    } else {
-      this.currentValue = "";
-    }
-
+    document.getElementById(this.id).value = this.currentValue;
     this.props.setValue(this.currentValue);
 
   },
 
   render: function() {
-    this.id = UUID.v4();
     return (
       React.createElement("div", null, 
         React.createElement("label", {htmlFor: this.id}, this.props.name), 
-        React.createElement("input", {style: {color: "#000000"}, type: "text", className: "u-full-width", placeholder: this.props.name, id: this.id, defaultValue: "", onChange: this.onChange})
+        React.createElement("input", {style: {color: "#000000"}, type: "text", className: "u-full-width", placeholder: this.props.name, id: this.id, defaultValue: this.currentValue, onChange: this.onChange})
       )
     )
   }
@@ -42,4 +46,3 @@ var DecimalField = React.createClass({displayName: "DecimalField",
 });
 
 module.exports = DecimalField;
-
