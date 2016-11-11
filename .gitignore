@@ -3,3 +3,4 @@ npm-debug.log
 decimal-field-**.tgz
 /.module-cache/
 /dist/
+index.js

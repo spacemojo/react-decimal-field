@@ -1,7 +1,7 @@
 'use strict'
 
-import React from 'react';
-import UUID from 'uuid';
+let React = require('react');
+let UUID = require('uuid');
 
 let DecimalField = React.createClass({displayName: "DecimalField",
 
