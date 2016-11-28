@@ -10,9 +10,7 @@ and zero or one point(.).
 
 ## Usage
 
-    var DecimalField = require('react-decimal-field');
-    OR
-    import DecimalField from 'react-decimal-field'
+    let DecimalField = require('react-decimal-field');
 
     functionToSetDecimalValue: function(value) {
         console.log("This is what I want to do with the value " + value);

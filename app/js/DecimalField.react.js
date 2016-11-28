@@ -7,8 +7,18 @@ let DecimalField = React.createClass({
 
   getInitialState: function() {
     this.id = UUID.v4();
-    this.currentValue = (this.props.value == undefined) ? "" : this.processValue(this.props.value);
+    this.currentValue = "";
     return null;
+  },
+
+  componentDidMount: function() {
+    this.currentValue = (this.props.value == undefined) ? "" : this.props.value;
+    document.getElementById(this.id).value = this.currentValue;
+  },
+
+  componentWillReceiveProps: function(newProps) {
+    this.currentValue = (newProps.value == undefined) ? "" : newProps.value;
+    document.getElementById(this.id).value = this.currentValue;
   },
 
   processValue: function(value) {
@@ -22,12 +32,11 @@ let DecimalField = React.createClass({
   onChange: function(event) {
 
     let that = this;
-    this.currentValue = event.nativeEvent.target.value.split("").reduce(function(str, char) {
-
-      let tmp = str + char;
-      return  (that.isDecimal(tmp)) ? tmp : str;
-
-    }, "");
+    this.currentValue = event.nativeEvent.target.value.split("")
+      .reduce(function(str, char) {
+        let tmp = str + char;
+        return  (that.isDecimal(tmp)) ? tmp : str;
+      }, "");
 
     document.getElementById(this.id).value = this.currentValue;
     this.props.setValue(this.currentValue);
